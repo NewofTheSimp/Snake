@@ -25,20 +25,16 @@ class Grid:
 
             self.y.append(stepY)
             stepY += shGrid
+        rectArr = []
+        for y in self.y:
+            for x in self.x:
+                rect = pygame.Rect(x, y,swGrid, shGrid)
+                pygame.draw.rect(screen, "red", rect, 1)
+                rectArr.append(rect)
+        return rectArr
+    
 
-        for i in self.y:
         
-            v = pygame.Vector2(i,self.y[0])
-            v2 = pygame.Vector2(i,self.y[-1])
-            pygame.draw.line(screen, "red", (v), (v2))
-
-        for i in self.x:
-        
-            v = pygame.Vector2(self.x[0], i)
-            v2 = pygame.Vector2(self.x[-1], i)
-            pygame.draw.line(screen, "red", (v), (v2))
-
-
 
             
 
