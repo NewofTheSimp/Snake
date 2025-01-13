@@ -11,8 +11,7 @@ running = True
 g = grid.Grid(500,500)
 rectArr = g.DrawGrid(screen)
 m = move.Move(rectArr)
-index = 0
-direction = 0
+direction = 1
 
 while running:
     # poll for events
@@ -26,22 +25,20 @@ while running:
 
     # RENDER YOUR GAME HERE
     
-    # Event handling (key presses)
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                direction = -1
-            elif event.key == pygame.K_RIGHT:
-                direction = 1
-            elif event.key == pygame.K_UP:
-                direction = -21
-            elif event.key == pygame.K_DOWN:
-                direction = 21
-    index += direction
-    m.moveDown(screen)
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+        direction = -21 
+    if keys[pygame.K_s]:
+        direction = 21
+    if keys[pygame.K_a]:
+        direction = -1
+    if keys[pygame.K_d]:
+        direction = 1
+    m.move(screen, direction)
+
     # flip() the display to put your work on screen
     pygame.display.flip()
 
-    clock.tick(5)  # limits FPS to 60
+    clock.tick(60)  # limits FPS to 60
 
 pygame.quit()
