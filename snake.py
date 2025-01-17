@@ -2,6 +2,7 @@
 import pygame
 import grid
 import move
+import colllision
 
 # pygame setup
 pygame.init()
@@ -11,7 +12,10 @@ running = True
 g = grid.Grid(500,500)
 rectArr = g.DrawGrid(screen)
 m = move.Move(rectArr)
+c = colllision.Coll(rectArr)
 direction = 1
+c.generateBait(screen)
+
 
 while running:
     # poll for events
@@ -21,7 +25,7 @@ while running:
             running = False
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill("#d8e2dc")
 
     # RENDER YOUR GAME HERE
     
@@ -34,7 +38,14 @@ while running:
         direction = -1
     if keys[pygame.K_d]:
         direction = 1
-    m.move(screen, direction)
+    i = m.move(screen, direction)
+    c.generateBait(screen)
+    if c.baitColl(i):
+        m.moveAppend()      
+    if  m.collSelf():
+         running = False
+
+    
 
     # flip() the display to put your work on screen
     pygame.display.flip()
