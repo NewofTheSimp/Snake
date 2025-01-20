@@ -44,6 +44,8 @@ while running:
         m.moveAppend()      
     if  m.collSelf():
          running = False
+    if m.collBorder(500, 500):
+        running = False
 
     
 

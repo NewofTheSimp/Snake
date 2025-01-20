@@ -26,10 +26,21 @@ class Move:
          self.snake.append(self.rect[self.index])
 
     def collSelf(self):
-        head = self.snake[0]  # The head of the snake is the first segment
-        for s in self.snake[1:]:  # Iterate through the rest of the snake's body
-            if head == s:  # Check if the head collides with any body segment
+        head = self.snake[0] 
+        for s in self.snake[1:]:  
+            if head == s:  
                 return True
+        return False
+
+    def collBorder(self, screen_width, screen_height):
+        head = self.snake[-1]  # Head of the snake
+        if (
+            head.left < 0 or 
+            head.right > screen_width or 
+            head.top < 0 or 
+            head.bottom > screen_height
+        ):
+            return True
         return False
              
             
